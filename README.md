@@ -1,53 +1,128 @@
-# Next.js & HeroUI Template
+# Resume Analyzer (Frontend)
 
-This is a template for creating applications using Next.js 14 (app directory) and HeroUI (v2).
+A modern web application frontend built with Next.js that provides an intuitive interface for resume analysis and cover letter generation. This is the client-side component of the Resume Analyzer application.
 
-[Try it on CodeSandbox](https://githubbox.com/heroui-inc/heroui/next-app-template)
+## 🌟 Features
 
-## Technologies Used
+- **Interactive Resume Upload**: Drag-and-drop interface for easy resume uploads
+- **Real-time Analysis**: View resume analysis results in real-time with a beautiful UI
+- **Cover Letter Generator**: User-friendly interface for generating customized cover letters
+- **Secure Authentication**: Protected routes with JWT-based authentication
+- **Responsive Design**: Beautiful and modern UI that works on all devices
+- **Dark/Light Mode**: Support for both dark and light themes
 
-- [Next.js 14](https://nextjs.org/docs/getting-started)
-- [HeroUI v2](https://heroui.com/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Tailwind Variants](https://tailwind-variants.org)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Framer Motion](https://www.framer.com/motion/)
-- [next-themes](https://github.com/pacocoursey/next-themes)
+## 🏗️ Project Structure
 
-## How to Use
-
-### Use the template with create-next-app
-
-To create a new project based on this template using `create-next-app`, run the following command:
-
-```bash
-npx create-next-app -e https://github.com/heroui-inc/next-app-template
+```
+├── app/                 # Next.js 14 app directory
+│   ├── layout.tsx      # Root layout
+│   ├── page.tsx        # Home page
+│   └── services/       # Service-specific pages
+├── components/         # Reusable UI components
+│   ├── ui/            # Basic UI components
+│   └── providers/     # Context providers
+├── sections/          # Feature-specific sections
+│   ├── analyze/       # Resume analysis components
+│   ├── auth/          # Authentication forms
+│   └── cover-letter/  # Cover letter components
+├── hooks/             # Custom React hooks
+├── utils/             # Utility functions
+├── types/             # TypeScript type definitions
+└── styles/            # Global styles and Tailwind config
 ```
 
-### Install dependencies
+## 🚀 Getting Started
 
-You can use one of them `npm`, `yarn`, `pnpm`, `bun`, Example using `npm`:
+### Prerequisites
+
+- Node.js (v16 or higher)
+- pnpm or bun package manager
+- Backend API server running (see [backend repository](link-to-backend-repo))
+
+### Installation
+
+1. Install dependencies:
+
+   ```bash
+   pnpm install
+   ```
+
+2. Copy the example environment file and configure it:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+3. Start the development server:
+   ```bash
+   pnpm dev
+   ```
+
+The application will be available at `http://localhost:3000`
+
+## 🔧 Environment Variables
+
+Copy `.env.example` to `.env` and configure:
+
+- `NEXT_PUBLIC_API_URL`: Backend API URL (e.g., http://localhost:3000)
+- `NEXT_PUBLIC_APP_URL`: Frontend application URL
+- `NEXT_PUBLIC_UPLOAD_MAX_SIZE`: Maximum file upload size in MB
+
+## 🎨 Development
+
+### Available Scripts
 
 ```bash
-npm install
+# Start development server
+pnpm dev
+
+# Build for production
+pnpm build
+
+# Start production server
+pnpm start
+
+# Run linter
+pnpm lint
+
+# Run type checking
+pnpm type-check
 ```
 
-### Run the development server
+### Code Style
+
+- ESLint for code linting
+- Prettier for code formatting
+- TypeScript for type safety
+
+### Component Development
+
+- Use Tailwind CSS for styling
+- Follow atomic design principles
+- Implement responsive design
+- Ensure accessibility standards
+
+## 🧪 Testing
 
 ```bash
-npm run dev
+# Run unit tests
+pnpm test
+
+# Run tests in watch mode
+pnpm test:watch
+
+# Generate coverage report
+pnpm test:coverage
 ```
 
-### Setup pnpm (optional)
+## 📝 License
 
-If you are using `pnpm`, you need to add the following code to your `.npmrc` file:
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-```bash
-public-hoist-pattern[]=*@heroui/*
-```
+## 🤝 Contributing
 
-After modifying the `.npmrc` file, you need to run `pnpm install` again to ensure that the dependencies are installed correctly.
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-## License
+## 📞 Support
 
-Licensed under the [MIT license](https://github.com/heroui-inc/next-app-template/blob/main/LICENSE).
+For support, please open an issue in the GitHub repository.
