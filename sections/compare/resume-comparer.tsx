@@ -58,7 +58,7 @@ export function ResumeComparer() {
   const result = data as ComparisonResult | undefined;
 
   return (
-    <Card className="w-full max-w-3xl p-6 space-y-6 shadow-lg bg-white dark:bg-gray-800">
+    <Card className="w-full max-w-3xl p-6 space-y-6 shadow-lg bg-white dark:bg-zinc-800">
       {/* Upload Section */}
       <div className="space-y-4">
         <FileUpload
@@ -84,6 +84,9 @@ export function ResumeComparer() {
             value={jobDescription}
             onChange={e => setJobDescription(e.target.value)}
             className="min-h-[150px]"
+            classNames={{
+              innerWrapper: 'dark:bg-zinc-900 rounded-md p-4',
+            }}
           />
         </div>
 

@@ -54,7 +54,7 @@ export function CoverLetterGenerator() {
   };
 
   return (
-    <Card className="w-full max-w-3xl p-6 space-y-6 shadow-lg bg-white dark:bg-gray-800">
+    <Card className="w-full max-w-3xl p-6 space-y-6 shadow-lg bg-white dark:bg-zinc-800">
       {/* Upload Section */}
       <div className="space-y-4">
         <FileUpload
@@ -78,6 +78,9 @@ export function CoverLetterGenerator() {
             value={jobDescription}
             onChange={e => setJobDescription(e.target.value)}
             className="min-h-[150px]"
+            classNames={{
+              innerWrapper: 'dark:bg-zinc-900 rounded-md p-4',
+            }}
           />
         </div>
 
@@ -96,10 +99,7 @@ export function CoverLetterGenerator() {
       {/* Results Section */}
       {generatedText?.length > 0 && (
         <div className="space-y-4">
-          <h2 className="text-xl font-bold text-gray-700 dark:text-gray-300">
-            {' '}
-            نگارش Cover Letter
-          </h2>
+          <h2 className="text-xl font-bold text-gray-700 dark:text-gray-300"> نگارش انگیزه نامه</h2>
           <div className="relative">
             <div className="prose dark:prose-invert max-w-full overflow-x-auto">
               <ReactMarkdown>{generatedText}</ReactMarkdown>

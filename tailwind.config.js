@@ -23,6 +23,9 @@ module.exports = {
       themes: {
         light: {
           colors: {
+            focus: {
+              DEFAULT: '#16a34a', // green-600
+            },
             primary: {
               DEFAULT: '#16a34a', // green-600
               foreground: '#ffffff',
@@ -31,6 +34,9 @@ module.exports = {
         },
         dark: {
           colors: {
+            focus: {
+              DEFAULT: '#22c55e', // green-500
+            },
             primary: {
               DEFAULT: '#22c55e', // green-500
               foreground: '#ffffff',

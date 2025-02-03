@@ -58,9 +58,9 @@ export default function Home() {
         {/* Hero Section */}
         <section className="w-full min-h-[70vh] flex flex-col items-center justify-center p-8 bg-gradient-to-b from-primary/5 to-transparent">
           <div className="text-center space-y-6 mb-16 max-w-4xl">
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white leading-tight">
+            <h1 className="text-4xl text-gray-900 dark:text-white leading-tight">
               تحلیل هوشمند رزومه با
-              <span className="text-primary"> هوش مصنوعی</span>
+              <span className="text-primary font-bold"> هوش مصنوعی</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
               با استفاده از هوش مصنوعی پیشرفته، رزومه خود را تحلیل کنید و با موقعیت‌های شغلی مقایسه
@@ -73,7 +73,7 @@ export default function Home() {
             {/* Analyze Resume Card */}
             <Link
               href="/analyze"
-              className="group relative bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 transition-all duration-300 hover:shadow-xl hover:scale-105"
+              className="group relative bg-white dark:bg-zinc-800 rounded-xl shadow-lg p-8 transition-all duration-300 hover:shadow-xl hover:scale-105"
             >
               <div className="flex flex-col items-center text-center space-y-4">
                 <div className="p-4 bg-primary/10 rounded-full">
@@ -89,7 +89,7 @@ export default function Home() {
             {/* Compare Resume Card */}
             <Link
               href="/compare"
-              className="group relative bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 transition-all duration-300 hover:shadow-xl hover:scale-105"
+              className="group relative bg-white dark:bg-zinc-800 rounded-xl shadow-lg p-8 transition-all duration-300 hover:shadow-xl hover:scale-105"
             >
               <div className="flex flex-col items-center text-center space-y-4">
                 <div className="p-4 bg-primary/10 rounded-full">
@@ -105,14 +105,14 @@ export default function Home() {
             {/* Cover Letter Card */}
             <Link
               href="/cover-letter"
-              className="group relative bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 transition-all duration-300 hover:shadow-xl hover:scale-105"
+              className="group relative bg-white dark:bg-zinc-800 rounded-xl shadow-lg p-8 transition-all duration-300 hover:shadow-xl hover:scale-105"
             >
               <div className="flex flex-col items-center text-center space-y-4">
                 <div className="p-4 bg-primary/10 rounded-full">
                   <HiPencilAlt className="w-8 h-8 text-primary" />
                 </div>
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-                  نگارش Cover Letter
+                  نگارش انگیزه نامه
                 </h2>
                 <p className="text-gray-600 dark:text-gray-300">
                   با هوش مصنوعی، Cover Letter حرفه‌ای متناسب با موقعیت شغلی بسازید
@@ -123,14 +123,14 @@ export default function Home() {
         </section>
 
         {/* Benefits Section */}
-        <section className="w-full py-20 px-4 bg-gray-50 dark:bg-gray-800/50">
+        <section className="w-full py-20 px-4 bg-gray-50 dark:bg-zinc-800/50">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-12">
               مزایای استفاده از تحلیلگر هوشمند رزومه
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {/* Benefit 1 */}
-              <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
+              <div className="bg-white dark:bg-zinc-800 p-6 rounded-xl shadow-md">
                 <div className="flex items-center space-x-4 space-x-reverse mb-4">
                   <div className="p-3 bg-primary/10 rounded-full">
                     <HiLightBulb className="w-6 h-6 text-primary" />
@@ -146,7 +146,7 @@ export default function Home() {
               </div>
 
               {/* Benefit 2 */}
-              <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
+              <div className="bg-white dark:bg-zinc-800 p-6 rounded-xl shadow-md">
                 <div className="flex items-center space-x-4 space-x-reverse mb-4">
                   <div className="p-3 bg-primary/10 rounded-full">
                     <HiChartBar className="w-6 h-6 text-primary" />
@@ -161,7 +161,7 @@ export default function Home() {
               </div>
 
               {/* Benefit 3 */}
-              <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
+              <div className="bg-white dark:bg-zinc-800 p-6 rounded-xl shadow-md">
                 <div className="flex items-center space-x-4 space-x-reverse mb-4">
                   <div className="p-3 bg-primary/10 rounded-full">
                     <HiClock className="w-6 h-6 text-primary" />
@@ -246,7 +246,7 @@ export default function Home() {
               </Link>
               <Link
                 href="/compare"
-                className="px-8 py-3 bg-white dark:bg-gray-800 text-primary border-2 border-primary rounded-lg font-semibold hover:bg-primary/5 transition-colors"
+                className="px-8 py-3 bg-white dark:bg-zinc-800 text-primary border-2 border-primary rounded-lg font-semibold hover:bg-primary/5 transition-colors"
               >
                 مقایسه با شغل
               </Link>

@@ -44,7 +44,7 @@ export function ResumeAnalyzer() {
   const result = data as AnalysisResult | undefined;
 
   return (
-    <Card className="w-full max-w-3xl p-6 space-y-6 shadow-lg bg-white dark:bg-gray-800">
+    <Card className="w-full max-w-3xl p-6 space-y-6 shadow-lg bg-white dark:bg-zinc-800">
       {/* Upload Section */}
       <div className="space-y-4">
         <FileUpload
