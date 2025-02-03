@@ -7,7 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-import { useAuth } from '@/hooks/api/useAuth';
+import { useAuth } from './providers/auth-provider';
 
 export function Navbar() {
   const { theme, setTheme } = useTheme();
@@ -33,39 +33,35 @@ export function Navbar() {
           </Link>
         </div>
         <div className="flex items-center gap-4">
-          {isAuthenticated() ? (
+          {!mounted ? (
+            // Skeleton loading state that matches the layout of both authenticated and non-authenticated states
+            <div className="flex items-center gap-4">
+              <div className="w-24 h-8 bg-gray-200 dark:bg-zinc-800 rounded animate-pulse" />
+              <div className="w-24 h-8 bg-gray-200 dark:bg-zinc-800 rounded animate-pulse" />
+            </div>
+          ) : isAuthenticated ? (
             <>
-              <Link href="/analyze">
-                <Button variant="light" size="sm">
-                  آنالیز رزومه
-                </Button>
-              </Link>
-              <Link href="/compare">
-                <Button variant="light" size="sm">
-                  مقایسه رزومه
-                </Button>
-              </Link>
-              <Link href="/cover-letter">
-                <Button variant="light" size="sm">
-                  نامه انگیزه‌نامه
-                </Button>
-              </Link>
+              <Button as={Link} href="/analyze" variant="light" size="sm">
+                آنالیز رزومه
+              </Button>
+              <Button as={Link} href="/compare" variant="light" size="sm">
+                مقایسه رزومه
+              </Button>
+              <Button as={Link} href="/cover-letter" variant="light" size="sm">
+                نامه انگیزه‌نامه
+              </Button>
               <Button variant="ghost" size="sm" className="text-red-600" onPress={logout}>
                 خروج
               </Button>
             </>
           ) : (
             <>
-              <Link href="/auth/login">
-                <Button variant="light" size="sm">
-                  ورود
-                </Button>
-              </Link>
-              <Link href="/auth/register">
-                <Button variant="solid" size="sm">
-                  ثبت نام
-                </Button>
-              </Link>
+              <Button as={Link} href="/auth/login" variant="light" size="sm">
+                ورود
+              </Button>
+              <Button as={Link} href="/auth/register" variant="solid" size="sm">
+                ثبت نام
+              </Button>
             </>
           )}
 
@@ -81,7 +77,9 @@ export function Navbar() {
               ) : (
                 <SunIcon className="h-5 w-5 transition-all" />
               )
-            ) : null}
+            ) : (
+              <div className="w-5 h-5 bg-gray-200 dark:bg-zinc-800 rounded animate-pulse" />
+            )}
           </Button>
         </div>
       </nav>

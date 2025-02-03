@@ -7,23 +7,39 @@ import { useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import Link from 'next/link';
 
-import { useAuth } from '@/hooks/api/useAuth';
+import { useAuthHook } from '@/hooks/api/useAuth';
 
 export default function RegisterForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const { register } = useAuth();
+  const [passwordsMatch, setPasswordsMatch] = useState(true);
+  const { register } = useAuthHook();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      // You might want to add proper error handling/toast here
-      alert('رمز عبور و تکرار آن یکسان نیستند');
+      setPasswordsMatch(false);
 
       return;
     }
+    setPasswordsMatch(true);
     register.mutate({ email, password });
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+    if (!passwordsMatch) {
+      setPasswordsMatch(e.target.value === confirmPassword || confirmPassword === '');
+    }
+  };
+
+  const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setConfirmPassword(e.target.value);
+
+    if (!passwordsMatch) {
+      setPasswordsMatch(e.target.value === password || e.target.value === '');
+    }
   };
 
   return (
@@ -45,15 +61,18 @@ export default function RegisterForm() {
             type="password"
             label="رمز عبور"
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            onChange={handlePasswordChange}
             required
+            color={!passwordsMatch ? 'danger' : 'default'}
           />
           <Input
             type="password"
             label="تکرار رمز عبور"
             value={confirmPassword}
-            onChange={e => setConfirmPassword(e.target.value)}
+            onChange={handleConfirmPasswordChange}
             required
+            color={!passwordsMatch ? 'danger' : 'default'}
+            description={!passwordsMatch ? 'رمز عبور و تکرار آن یکسان نیستند' : undefined}
           />
           <Button type="submit" color="primary" className="w-full" isLoading={register.isPending}>
             ثبت نام

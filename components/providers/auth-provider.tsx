@@ -1,11 +1,12 @@
-import { createContext, useContext, useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { useAuth as useAuthHook } from '@/hooks/api/useAuth';
+import { createContext, useContext } from 'react';
+import { UseMutationResult } from '@tanstack/react-query';
+
+import { AuthCredentials, useAuthHook } from '@/hooks/api/useAuth';
 
 interface AuthContextType {
   isAuthenticated: boolean;
-  login: (credentials: { email: string; password: string }) => void;
-  register: (credentials: { email: string; password: string }) => void;
+  login: UseMutationResult<any, Error, AuthCredentials, unknown>;
+  register: UseMutationResult<any, Error, AuthCredentials, unknown>;
   logout: () => void;
 }
 
@@ -13,26 +14,11 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const auth = useAuthHook();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  useEffect(() => {
-    // Check authentication status on mount and token changes
-    const checkAuth = () => {
-      setIsAuthenticated(auth.isAuthenticated());
-    };
-
-    checkAuth();
-    window.addEventListener('storage', checkAuth);
-
-    return () => {
-      window.removeEventListener('storage', checkAuth);
-    };
-  }, [auth]);
 
   const value = {
-    isAuthenticated,
-    login: auth.login.mutate,
-    register: auth.register.mutate,
+    isAuthenticated: auth.isAuthenticated,
+    login: auth.login,
+    register: auth.register,
     logout: auth.logout,
   };
 

@@ -72,7 +72,7 @@ export default function Home() {
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl w-full">
             {/* Analyze Resume Card */}
             <Link
-              href="/analyze"
+              href="/services/analyze"
               className="group relative bg-white dark:bg-zinc-800 rounded-xl shadow-lg p-8 transition-all duration-300 hover:shadow-xl hover:scale-105"
             >
               <div className="flex flex-col items-center text-center space-y-4">
@@ -88,7 +88,7 @@ export default function Home() {
 
             {/* Compare Resume Card */}
             <Link
-              href="/compare"
+              href="/services/compare"
               className="group relative bg-white dark:bg-zinc-800 rounded-xl shadow-lg p-8 transition-all duration-300 hover:shadow-xl hover:scale-105"
             >
               <div className="flex flex-col items-center text-center space-y-4">
@@ -104,7 +104,7 @@ export default function Home() {
 
             {/* Cover Letter Card */}
             <Link
-              href="/cover-letter"
+              href="/services/cover-letter"
               className="group relative bg-white dark:bg-zinc-800 rounded-xl shadow-lg p-8 transition-all duration-300 hover:shadow-xl hover:scale-105"
             >
               <div className="flex flex-col items-center text-center space-y-4">
@@ -239,13 +239,13 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href="/analyze"
+                href="/services/analyze"
                 className="px-8 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition-colors"
               >
                 شروع تحلیل رزومه
               </Link>
               <Link
-                href="/compare"
+                href="/services/compare"
                 className="px-8 py-3 bg-white dark:bg-zinc-800 text-primary border-2 border-primary rounded-lg font-semibold hover:bg-primary/5 transition-colors"
               >
                 مقایسه با شغل

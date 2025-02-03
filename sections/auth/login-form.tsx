@@ -6,15 +6,13 @@ import { Card, CardBody, CardHeader } from '@heroui/react';
 import { useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import Link from 'next/link';
-import { useTheme } from 'next-themes';
 
-import { useAuth } from '@/hooks/api/useAuth';
+import { useAuth } from '@/components/providers/auth-provider';
 
 export default function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { login } = useAuth();
-  const { theme } = useTheme();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
