@@ -12,7 +12,7 @@ import { useAuth } from '@/components/providers/auth-provider';
 export default function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { login } = useAuth();
+  const { login, googleLogin } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -61,6 +61,7 @@ export default function LoginForm() {
           className="w-full"
           variant="bordered"
           startContent={<FcGoogle className="text-xl" />}
+          onPress={googleLogin}
         >
           ورود با گوگل
         </Button>

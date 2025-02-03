@@ -41,13 +41,13 @@ export function Navbar() {
             </div>
           ) : isAuthenticated ? (
             <>
-              <Button as={Link} href="/analyze" variant="light" size="sm">
+              <Button as={Link} href="/services/analyze" variant="light" size="sm">
                 آنالیز رزومه
               </Button>
-              <Button as={Link} href="/compare" variant="light" size="sm">
+              <Button as={Link} href="/services/compare" variant="light" size="sm">
                 مقایسه رزومه
               </Button>
-              <Button as={Link} href="/cover-letter" variant="light" size="sm">
+              <Button as={Link} href="/services/cover-letter" variant="light" size="sm">
                 نامه انگیزه‌نامه
               </Button>
               <Button variant="ghost" size="sm" className="text-red-600" onPress={logout}>

@@ -65,6 +65,10 @@ export const useAuthHook = () => {
     },
   });
 
+  const googleLogin = () => {
+    window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/auth/google`;
+  };
+
   const logout = () => {
     localStorage.removeItem('token');
     setIsAuthenticated(false);
@@ -74,6 +78,7 @@ export const useAuthHook = () => {
   return {
     login,
     register,
+    googleLogin,
     logout,
     isAuthenticated,
   };

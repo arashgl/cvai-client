@@ -7,6 +7,7 @@ interface AuthContextType {
   isAuthenticated: boolean;
   login: UseMutationResult<any, Error, AuthCredentials, unknown>;
   register: UseMutationResult<any, Error, AuthCredentials, unknown>;
+  googleLogin: () => void;
   logout: () => void;
 }
 
@@ -19,6 +20,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     isAuthenticated: auth.isAuthenticated,
     login: auth.login,
     register: auth.register,
+    googleLogin: auth.googleLogin,
     logout: auth.logout,
   };
 

@@ -7,20 +7,19 @@ import { useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import Link from 'next/link';
 
-import { useAuthHook } from '@/hooks/api/useAuth';
+import { useAuth } from '@/components/providers/auth-provider';
 
 export default function RegisterForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordsMatch, setPasswordsMatch] = useState(true);
-  const { register } = useAuthHook();
+  const { register, googleLogin } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       setPasswordsMatch(false);
-
       return;
     }
     setPasswordsMatch(true);
@@ -36,7 +35,6 @@ export default function RegisterForm() {
 
   const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setConfirmPassword(e.target.value);
-
     if (!passwordsMatch) {
       setPasswordsMatch(e.target.value === password || e.target.value === '');
     }
@@ -94,6 +92,7 @@ export default function RegisterForm() {
           className="w-full"
           variant="bordered"
           startContent={<FcGoogle className="text-xl" />}
+          onPress={googleLogin}
         >
           ثبت نام با گوگل
         </Button>
