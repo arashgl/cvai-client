@@ -41,7 +41,7 @@ export const useAuthHook = () => {
       // Store the token in localStorage or a secure cookie
       localStorage.setItem('token', data.token);
       setIsAuthenticated(true);
-      router.push('/analyze'); // Redirect to main page after login
+      router.push('/services/analyze'); // Redirect to main page after login
     },
     onError: () => {
       toast.error('ایمیل یا رمز عبور اشتباه است');
@@ -58,7 +58,7 @@ export const useAuthHook = () => {
       // Store the token in localStorage or a secure cookie
       localStorage.setItem('token', data.token);
       setIsAuthenticated(true);
-      router.push('/analyze'); // Redirect to main page after registration
+      router.push('/services/analyze'); // Redirect to main page after registration
     },
     onError: () => {
       toast.error('ایمیل قبلا استفاده شده است');

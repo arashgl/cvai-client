@@ -1,0 +1,97 @@
+.typing-animation {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+  position: relative;
+}
+
+.typing-animation > * {
+  animation: smoothAppear 0.5s ease-out;
+}
+
+.content-container {
+  scroll-behavior: smooth;
+  max-height: 70vh;
+  padding: 1rem;
+  position: relative;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(155, 155, 155, 0.5) transparent;
+}
+
+.content-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.content-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.content-container::-webkit-scrollbar-thumb {
+  background-color: rgba(155, 155, 155, 0.5);
+  border-radius: 20px;
+  border: transparent;
+}
+
+/* RTL specific styles */
+.rtl {
+  text-align: right;
+  direction: rtl;
+}
+
+.rtl.typing-animation::after {
+  right: 100%;
+  margin-right: 2px;
+}
+
+/* LTR specific styles */
+.ltr {
+  text-align: left;
+  direction: ltr;
+}
+
+.ltr.typing-animation::after {
+  left: 100%;
+  margin-left: 2px;
+}
+
+@keyframes smoothAppear {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.typing-animation::after {
+  content: '|';
+  position: absolute;
+  animation: blink 1s step-end infinite;
+  color: currentColor;
+  top: 0;
+}

@@ -3,21 +3,73 @@
 import { Button } from '@heroui/button';
 import { Card } from '@heroui/card';
 import { Textarea } from '@heroui/input';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import ReactMarkdown from 'react-markdown';
 import { HiCheck, HiClipboardCopy } from 'react-icons/hi';
 
 import { useSubmitCoverLetter } from '@/hooks/api/useSubmitCoverLetter';
 import { FileUpload } from '@/components/file-upload';
+import styles from './cover-letter.module.css';
+
+// Helper function to detect Persian/Arabic text
+const containsPersian = (text: string) => {
+  const persianPattern = /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]/;
+  return persianPattern.test(text);
+};
 
 export function CoverLetterGenerator() {
   const [generatedText, setGeneratedText] = useState('');
+  const [displayedText, setDisplayedText] = useState('');
   const [isCopied, setIsCopied] = useState(false);
+  const [isRTL, setIsRTL] = useState(false);
+  const textQueueRef = useRef<string[]>([]);
+  const isProcessingRef = useRef(false);
+  const resultRef = useRef<HTMLDivElement>(null);
 
   const { mutate, isPending } = useSubmitCoverLetter(chunk => {
-    setGeneratedText(prev => prev + chunk);
+    textQueueRef.current.push(chunk);
+    processNextChunk();
   });
+
+  const processNextChunk = async () => {
+    if (isProcessingRef.current || textQueueRef.current.length === 0) return;
+
+    isProcessingRef.current = true;
+    const chunk = textQueueRef.current.shift() || '';
+
+    // Update text direction based on content
+    setIsRTL(containsPersian(chunk));
+
+    // Process chunk letter by letter
+    const letters = chunk.split('');
+
+    for (let i = 0; i < letters.length; i++) {
+      await new Promise(resolve => setTimeout(resolve, 5));
+      setGeneratedText(prev => prev + letters[i]);
+    }
+
+    isProcessingRef.current = false;
+
+    if (textQueueRef.current.length > 0) {
+      processNextChunk();
+    }
+  };
+
+  useEffect(() => {
+    const animateText = async () => {
+      setDisplayedText(generatedText);
+
+      // Smooth scroll to bottom when new content is added
+      if (resultRef.current) {
+        resultRef.current.scrollIntoView({
+          behavior: 'smooth',
+          block: 'end',
+        });
+      }
+    };
+    animateText();
+  }, [generatedText]);
 
   const [file, setFile] = useState<File | null>(null);
   const [jobDescription, setJobDescription] = useState('');
@@ -98,15 +150,24 @@ export function CoverLetterGenerator() {
 
       {/* Results Section */}
       {generatedText?.length > 0 && (
-        <div className="space-y-4">
-          <h2 className="text-xl font-bold text-gray-700 dark:text-gray-300"> نگارش انگیزه نامه</h2>
+        <div className={`space-y-4 ${styles['animate-fade-in']}`} ref={resultRef}>
+          <h2 className="text-xl font-bold text-gray-700 dark:text-gray-300">نگارش انگیزه نامه</h2>
           <div className="relative">
-            <div className="prose dark:prose-invert max-w-full overflow-x-auto">
-              <ReactMarkdown>{generatedText}</ReactMarkdown>
+            <div
+              className={`prose dark:prose-invert max-w-full overflow-x-auto transition-all duration-200 ease-in-out ${
+                styles['content-container']
+              }`}
+              dir={isRTL ? 'rtl' : 'ltr'}
+            >
+              <div
+                className={`${styles['typing-animation']} ${isRTL ? styles['rtl'] : styles['ltr']}`}
+              >
+                <ReactMarkdown>{displayedText}</ReactMarkdown>
+              </div>
             </div>
             <Button
               isIconOnly
-              className="absolute top-[-50px] left-[-10px]"
+              className="absolute top-[-50px] left-[-10px] transition-transform duration-200 hover:scale-105"
               color="primary"
               onPress={() => {
                 setIsCopied(false);

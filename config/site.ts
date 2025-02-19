@@ -11,15 +11,15 @@ export const siteConfig = {
     },
     {
       label: 'Analyze Resume',
-      href: '/analyze',
+      href: '/services/analyze',
     },
     {
       label: 'Cover Letter',
-      href: '/cover-letter',
+      href: '/services/cover-letter',
     },
     {
       label: 'Compare',
-      href: '/compare',
+      href: '/services/compare',
     },
   ],
   navMenuItems: [

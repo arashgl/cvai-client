@@ -31,13 +31,19 @@
             "name": "Analyze Resume",
             "short_name": "Analyze",
             "description": "Analyze your resume",
-            "url": "/analyze"
+            "url": "/services/analyze"
         },
         {
             "name": "Compare Resumes",
             "short_name": "Compare",
             "description": "Compare multiple resumes",
-            "url": "/compare"
+            "url": "/services/compare"
+        },
+        {
+            "name": "Cover Letter",
+            "short_name": "Cover Letter",
+            "description": "Generate a cover letter",
+            "url": "/services/cover-letter"
         }
     ]
 }
