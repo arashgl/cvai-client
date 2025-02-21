@@ -31,6 +31,21 @@ export const useAuthHook = () => {
     setIsAuthenticated(checkAuth());
   }, []);
 
+  const googleCheck = useMutation({
+    mutationFn: async (token: string) => {
+      localStorage.setItem('token', token);
+      api.defaults.headers.common.Authorization = `Bearer ${token}`;
+      const { data } = await api.get('/user/me');
+
+      return data;
+    },
+    onSuccess: (_, token) => {
+      localStorage.setItem('token', token);
+      setIsAuthenticated(true);
+      router.push('/services/analyze'); // Redirect to main page after login
+    },
+  });
+
   const login = useMutation({
     mutationFn: async (credentials: AuthCredentials) => {
       const { data } = await api.post('/auth/login', credentials);
@@ -81,5 +96,6 @@ export const useAuthHook = () => {
     googleLogin,
     logout,
     isAuthenticated,
+    googleCheck,
   };
 };

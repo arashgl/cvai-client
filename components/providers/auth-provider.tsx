@@ -6,6 +6,7 @@ import { AuthCredentials, useAuthHook } from '@/hooks/api/useAuth';
 interface AuthContextType {
   isAuthenticated: boolean;
   login: UseMutationResult<any, Error, AuthCredentials, unknown>;
+  googleCheck: UseMutationResult<any, Error, string, unknown>;
   register: UseMutationResult<any, Error, AuthCredentials, unknown>;
   googleLogin: () => void;
   logout: () => void;
@@ -22,6 +23,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     register: auth.register,
     googleLogin: auth.googleLogin,
     logout: auth.logout,
+    googleCheck: auth.googleCheck,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
