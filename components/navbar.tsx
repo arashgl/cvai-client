@@ -1,7 +1,6 @@
 'use client';
 
 import { Button } from '@heroui/button';
-import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from '@heroui/dropdown';
 import {
   Navbar as HeroNavbar,
   NavbarBrand,
