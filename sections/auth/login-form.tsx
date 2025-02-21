@@ -3,8 +3,9 @@
 import { Button } from '@heroui/button';
 import { Input } from '@heroui/input';
 import { Card, CardBody, CardHeader } from '@heroui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
 import { useAuth } from '@/components/providers/auth-provider';
@@ -12,7 +13,16 @@ import { useAuth } from '@/components/providers/auth-provider';
 export default function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { login, googleLogin } = useAuth();
+  const { login, googleLogin, googleCheck } = useAuth();
+
+  const UrlParams = useSearchParams();
+  const token = UrlParams.get('token');
+
+  useEffect(() => {
+    if (token) {
+      googleCheck.mutate(token);
+    }
+  }, [token]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
