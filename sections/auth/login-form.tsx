@@ -2,7 +2,7 @@
 
 import { Button } from '@heroui/button';
 import { Input } from '@heroui/input';
-import { Card, CardBody, CardHeader } from '@heroui/react';
+import { Card, CardBody, CardHeader, Spinner } from '@heroui/react';
 import { useEffect, useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { useSearchParams } from 'next/navigation';
@@ -28,6 +28,14 @@ export default function LoginForm() {
     e.preventDefault();
     login.mutate({ email, password });
   };
+
+  if (googleCheck.isPending) {
+    return (
+      <div className="w-full h-full flex items-center justify-center">
+        <Spinner />
+      </div>
+    );
+  }
 
   return (
     <Card className="w-full max-w-md">
