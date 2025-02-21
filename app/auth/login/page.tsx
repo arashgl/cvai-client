@@ -2,10 +2,10 @@
 
 import { Suspense, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { Spinner } from '@heroui/react';
 
 import LoginForm from '@/sections/auth/login-form';
 import { useAuth } from '@/components/providers/auth-provider';
-import { Spinner } from '@heroui/react';
 
 export default function LoginPage() {
   const router = useRouter();

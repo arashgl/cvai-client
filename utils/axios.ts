@@ -21,3 +21,22 @@ api.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+
+// Add response interceptor to handle 401 errors
+api.interceptors.response.use(
+  response => response,
+  error => {
+    const isAuthRoute = ['/auth'].some(route => error.config.url?.includes(route));
+
+    // If it's a 401 error and not an auth route
+    if (error.response?.status === 401 && !isAuthRoute) {
+      // Clear token
+      localStorage.removeItem('token');
+
+      // Redirect to index page
+      window.location.href = '/';
+    }
+
+    return Promise.reject(error);
+  }
+);

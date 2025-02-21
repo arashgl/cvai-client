@@ -18,108 +18,122 @@ import { useEffect, useState } from 'react';
 
 import { useAuth } from './providers/auth-provider';
 
-export function Navbar() {
-  const { theme, setTheme } = useTheme();
+const PublicNavigationItems = ({ onClose }: { onClose: () => void }) => (
+  <>
+    <NavbarItem>
+      <Button as={Link} href="/" variant="light" size="sm" onPress={onClose}>
+        خانه
+      </Button>
+    </NavbarItem>
+    <NavbarItem>
+      <Button as={Link} href="/about" variant="light" size="sm" onPress={onClose}>
+        درباره ما
+      </Button>
+    </NavbarItem>
+  </>
+);
+
+const AuthenticatedNavigationItems = ({ onClose }: { onClose: () => void }) => (
+  <>
+    <NavbarItem>
+      <Button as={Link} href="/services/analyze" variant="light" size="sm" onPress={onClose}>
+        آنالیز رزومه
+      </Button>
+    </NavbarItem>
+    <NavbarItem>
+      <Button as={Link} href="/services/compare" variant="light" size="sm" onPress={onClose}>
+        مقایسه رزومه
+      </Button>
+    </NavbarItem>
+    <NavbarItem>
+      <Button as={Link} href="/services/cover-letter" variant="light" size="sm" onPress={onClose}>
+        نامه انگیزه‌نامه
+      </Button>
+    </NavbarItem>
+  </>
+);
+
+const AuthSection = ({ onClose }: { onClose: () => void }) => {
   const { isAuthenticated, logout } = useAuth();
+
+  if (isAuthenticated) {
+    return (
+      <NavbarItem>
+        <Button
+          variant="ghost"
+          size="sm"
+          className="text-red-600"
+          onPress={() => {
+            onClose();
+            logout();
+          }}
+        >
+          خروج
+        </Button>
+      </NavbarItem>
+    );
+  }
+
+  return (
+    <>
+      <NavbarItem>
+        <Button as={Link} href="/auth/login" variant="light" size="sm" onPress={onClose}>
+          ورود
+        </Button>
+      </NavbarItem>
+      <NavbarItem>
+        <Button as={Link} href="/auth/register" variant="solid" size="sm" onPress={onClose}>
+          ثبت نام
+        </Button>
+      </NavbarItem>
+    </>
+  );
+};
+
+const ThemeToggle = ({ mounted }: { mounted: boolean }) => {
+  const { theme, setTheme } = useTheme();
+
+  return (
+    <NavbarItem>
+      <Button
+        variant="ghost"
+        size="sm"
+        className="text-gray-700 dark:text-gray-300"
+        onPress={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+      >
+        {mounted ? (
+          theme === 'light' ? (
+            <MoonIcon className="h-5 w-5 transition-all" />
+          ) : (
+            <SunIcon className="h-5 w-5 transition-all" />
+          )
+        ) : (
+          <div className="w-5 h-5 bg-gray-200 dark:bg-zinc-800 rounded animate-pulse" />
+        )}
+      </Button>
+    </NavbarItem>
+  );
+};
+
+export function Navbar() {
   const [mounted, setMounted] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  const handleAction = (action: () => void) => {
-    setIsMenuOpen(false);
-    action();
-  };
+  const handleClose = () => setIsMenuOpen(false);
 
-  const renderNavItems = () => {
-    if (!mounted) {
-      return (
-        <div className="flex items-center gap-4">
-          <div className="w-24 h-8 bg-gray-200 dark:bg-zinc-800 rounded animate-pulse" />
-          <div className="w-24 h-8 bg-gray-200 dark:bg-zinc-800 rounded animate-pulse" />
-        </div>
-      );
-    }
-
-    if (isAuthenticated) {
-      return (
-        <>
-          <NavbarItem>
-            <Button
-              as={Link}
-              href="/services/analyze"
-              variant="light"
-              size="sm"
-              onPress={() => setIsMenuOpen(false)}
-            >
-              آنالیز رزومه
-            </Button>
-          </NavbarItem>
-          <NavbarItem>
-            <Button
-              as={Link}
-              href="/services/compare"
-              variant="light"
-              size="sm"
-              onPress={() => setIsMenuOpen(false)}
-            >
-              مقایسه رزومه
-            </Button>
-          </NavbarItem>
-          <NavbarItem>
-            <Button
-              as={Link}
-              href="/services/cover-letter"
-              variant="light"
-              size="sm"
-              onPress={() => setIsMenuOpen(false)}
-            >
-              نامه انگیزه‌نامه
-            </Button>
-          </NavbarItem>
-          <NavbarItem>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="text-red-600"
-              onPress={() => handleAction(logout)}
-            >
-              خروج
-            </Button>
-          </NavbarItem>
-        </>
-      );
-    }
-
+  if (!mounted) {
     return (
-      <>
-        <NavbarItem>
-          <Button
-            as={Link}
-            href="/auth/login"
-            variant="light"
-            size="sm"
-            onPress={() => setIsMenuOpen(false)}
-          >
-            ورود
-          </Button>
-        </NavbarItem>
-        <NavbarItem>
-          <Button
-            as={Link}
-            href="/auth/register"
-            variant="solid"
-            size="sm"
-            onPress={() => setIsMenuOpen(false)}
-          >
-            ثبت نام
-          </Button>
-        </NavbarItem>
-      </>
+      <div className="flex items-center gap-4">
+        <div className="w-24 h-8 bg-gray-200 dark:bg-zinc-800 rounded animate-pulse" />
+        <div className="w-24 h-8 bg-gray-200 dark:bg-zinc-800 rounded animate-pulse" />
+      </div>
     );
-  };
+  }
 
   return (
     <HeroNavbar
@@ -137,7 +151,7 @@ export function Navbar() {
           <Link
             href="/"
             className="flex items-center gap-2 font-bold text-gray-900 dark:text-white text-lg"
-            onClick={() => setIsMenuOpen(false)}
+            onClick={handleClose}
           >
             <Image
               src={'/brand/logo-letter.webp'}
@@ -151,31 +165,20 @@ export function Navbar() {
       </NavbarContent>
 
       <NavbarContent className="hidden md:flex gap-4" justify="center">
-        {renderNavItems()}
+        <PublicNavigationItems onClose={handleClose} />
+        {isAuthenticated && <AuthenticatedNavigationItems onClose={handleClose} />}
       </NavbarContent>
 
-      <NavbarContent justify="end">
-        <NavbarItem>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="text-gray-700 dark:text-gray-300"
-            onPress={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-          >
-            {mounted ? (
-              theme === 'light' ? (
-                <MoonIcon className="h-5 w-5 transition-all" />
-              ) : (
-                <SunIcon className="h-5 w-5 transition-all" />
-              )
-            ) : (
-              <div className="w-5 h-5 bg-gray-200 dark:bg-zinc-800 rounded animate-pulse" />
-            )}
-          </Button>
-        </NavbarItem>
+      <NavbarContent className="hidden md:flex" justify="end">
+        <AuthSection onClose={handleClose} />
+        <ThemeToggle mounted={mounted} />
       </NavbarContent>
 
-      <NavbarMenu>{renderNavItems()}</NavbarMenu>
+      <NavbarMenu>
+        <PublicNavigationItems onClose={handleClose} />
+        {isAuthenticated && <AuthenticatedNavigationItems onClose={handleClose} />}
+        <AuthSection onClose={handleClose} />
+      </NavbarMenu>
     </HeroNavbar>
   );
 }
